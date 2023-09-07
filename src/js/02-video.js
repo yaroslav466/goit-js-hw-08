@@ -22,21 +22,7 @@ player.on('timeupdate',throttle( function ({seconds}) {
 const cachedDataTime = JSON.parse(localStorage.getItem("videoplayer-current-time"));
 
 if (typeof cachedDataTime === 'number') {
-    player.setCurrentTime(cachedDataTime).then(function(seconds) {
-        console.log('Successfully set current time to:', seconds);
-        
-    })
-    .catch (function(error) {
-        switch (error.name) {
-            case 'RangeError':
-                console.log('Error: Time was less than 0 or greater than the video’s duration');
-                break;
-
-            default:
-                console.error('An error occurred:', error);
-                break;
-        }
-    });
-} else {
+    player.setCurrentTime(cachedDataTime || 0);
     console.log('Cached time is not valid:', cachedDataTime);
 }
+
